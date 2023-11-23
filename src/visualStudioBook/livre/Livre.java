@@ -1,6 +1,7 @@
 package visualStudioBook.livre;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,6 +22,9 @@ public class Livre {
 	private final ArrayList<IObjet> objets;
 	
 	public Livre(String title, String auteur, String description) {
+		Objects.requireNonNull(title);
+		Objects.requireNonNull(auteur);
+		Objects.requireNonNull(description);
 		this.title = title;
 		this.auteur = auteur;
 		this.description = description;
@@ -34,6 +38,7 @@ public class Livre {
 	}
 
 	public void setTitle(String title) {
+		Objects.requireNonNull(title);
 		this.title = title;
 	}
 
@@ -42,6 +47,7 @@ public class Livre {
 	}
 
 	public void setAuteur(String auteur) {
+		Objects.requireNonNull(auteur);
 		this.auteur = auteur;
 	}
 
@@ -50,6 +56,7 @@ public class Livre {
 	}
 
 	public void setDescription(String description) {
+		Objects.requireNonNull(description);
 		this.description = description;
 	}
 
@@ -76,6 +83,17 @@ public class Livre {
 	public boolean addEnchainement(ISection source, ISection destination) {
 		Objects.requireNonNull(source);
 		Objects.requireNonNull(destination);
+		
+		Iterator<IEnchainement> iterator = this.enchainements.iterator();
+		while(iterator.hasNext()) {
+			IEnchainement next = iterator.next();
+			if (next.getSource().getIdSection() == source.getIdSection()
+				&&
+				next.getDestination().getIdSection() == destination.getIdSection()) {
+				return false;
+			}
+		}
+		
 		return this.enchainements.add(EnchainementFactory.createEnchainement(source, destination));
 	}
 	
