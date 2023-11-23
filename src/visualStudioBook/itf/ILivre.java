@@ -15,5 +15,7 @@ public interface ILivre {
 	void importLivre(String path);
 	void exportLivre(String path, int type);
 	boolean addSection(String title, String content);
+	boolean addObjet(String name, String description);
+	boolean addEnchainement(ISection source, ISection destination);
 }
    
