@@ -14,5 +14,6 @@ public interface ILivre {
 	List<IObjet> getObjets();
 	void importLivre(String path);
 	void exportLivre(String path, int type);
-	
+	boolean addSection(String title, String content);
 }
+   

@@ -2,10 +2,15 @@ package visualStudioBook.livre;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import visualStudioBook.factory.EnchainementFactory;
+import visualStudioBook.factory.ObjetFactory;
+import visualStudioBook.factory.SectionFactory;
 import visualStudioBook.itf.IEnchainement;
 import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
+
 
 public class Livre {
 	private String title;
@@ -58,6 +63,26 @@ public class Livre {
 
 	public List<IObjet> getObjets() {
 		return objets;
+	}
+	
+	
+	
+	public boolean addSection(String title, String content) {
+		Objects.requireNonNull(title);
+		Objects.requireNonNull(content);
+		return this.sections.add(SectionFactory.createNewSection(title, content));
+	}
+	
+	public boolean addEnchainement(ISection source, ISection destination) {
+		Objects.requireNonNull(source);
+		Objects.requireNonNull(destination);
+		return this.enchainements.add(EnchainementFactory.createEnchainement(source, destination));
+	}
+	
+	public boolean addObjet(String name, String description) {
+		Objects.requireNonNull(name);
+		Objects.requireNonNull(description);
+		return this.objets.add(ObjetFactory.createObjet(name, description));
 	}
 	
 	
