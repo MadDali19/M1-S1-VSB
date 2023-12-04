@@ -45,4 +45,19 @@ public class Enchainement implements IEnchainement {
 		return condition;
 	}
 	
+	@Override
+	public int hashCode() {
+		int hash;
+		hash = 31 * source.hashCode()+ destination.hashCode();
+		return hash;
+	}
+	
+	@Override
+	public boolean equals(IEnchainement object) {
+		return ((object.getSource().getIdSection() == getSource().getIdSection())
+				&&
+				(object.getDestination() == getDestination())
+			   );
+	}
+	
 }

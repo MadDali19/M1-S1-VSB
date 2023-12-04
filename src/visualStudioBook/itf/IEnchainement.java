@@ -9,4 +9,6 @@ public interface IEnchainement {
 	void setDestination(ISection destination);
 	int getIdEnchainement();
 	List<IObjet> getCondition();
+	int hashCode();
+	boolean equals(IEnchainement object);
 }

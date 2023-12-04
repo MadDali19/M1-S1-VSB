@@ -48,7 +48,10 @@ public class Section implements ISection {
 		return givenObjects;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		return idSection;
+	}
 	
 	
 }

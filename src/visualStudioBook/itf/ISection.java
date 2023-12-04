@@ -10,4 +10,7 @@ public interface ISection {
 	void setContent(String content);
 	int getIdSection();
 	List<IObjet> getGivenObjects();
+	
+	@Override
+	int hashCode();
 }

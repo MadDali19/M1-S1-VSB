@@ -1,6 +1,7 @@
 package visualStudioBook.livre;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -18,8 +19,8 @@ public class Livre {
 	private String auteur;
 	private String description;
 	private final ArrayList<IEnchainement> enchainements;
-	private final ArrayList<ISection> sections;
-	private final ArrayList<IObjet> objets;
+	private final HashMap<Integer,ISection> sections;
+	private final HashMap<Integer,IObjet> objets;
 	
 	public Livre(String title, String auteur, String description) {
 		Objects.requireNonNull(title);
@@ -29,8 +30,8 @@ public class Livre {
 		this.auteur = auteur;
 		this.description = description;
 		enchainements = new ArrayList<IEnchainement>();
-		sections = new ArrayList<ISection>();
-		objets = new ArrayList<IObjet>();
+		sections = new HashMap<Integer,ISection>();
+		objets = new HashMap<Integer,IObjet>();
 	}
 
 	public String getTitle() {
@@ -65,11 +66,11 @@ public class Livre {
 	}
 
 	public List<ISection> getSections() {
-		return sections;
+		return new ArrayList<ISection>(sections.values());
 	}
 
 	public List<IObjet> getObjets() {
-		return objets;
+		return new ArrayList<IObjet>(objets.values());
 	}
 	
 	
@@ -77,7 +78,26 @@ public class Livre {
 	public boolean addSection(String title, String content) {
 		Objects.requireNonNull(title);
 		Objects.requireNonNull(content);
-		return this.sections.add(SectionFactory.createNewSection(title, content));
+		ISection newSection = SectionFactory.createNewSection(title, content);
+		this.sections.put(Integer.valueOf(newSection.getIdSection()), newSection);
+		return true;
+	}
+
+	public boolean modifySection(int id, String title, String content) {
+		if (sections.containsKey(Integer.valueOf(id))) {
+			sections.get(Integer.valueOf(id)).setTitle(title);
+			sections.get(Integer.valueOf(id)).setContent(content);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean deleteSection(int id) {
+		if (sections.containsKey(Integer.valueOf(id))) {
+			sections.remove(Integer.valueOf(id));
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean addEnchainement(ISection source, ISection destination) {
@@ -97,11 +117,50 @@ public class Livre {
 		return this.enchainements.add(EnchainementFactory.createEnchainement(source, destination));
 	}
 	
+	public boolean modifyEnchainement(int id, ISection source, ISection destination) {
+		Objects.requireNonNull(source);
+		Objects.requireNonNull(destination);
+		
+		Iterator<IEnchainement> iterator = this.enchainements.iterator();
+		IEnchainement toModify = null;
+		while(iterator.hasNext()) {
+			IEnchainement next = iterator.next();
+			if (next.getSource().getIdSection() == source.getIdSection()
+				&&
+				next.getDestination().getIdSection() == destination.getIdSection()) {
+				return false;
+			}
+			if (next.getIdEnchainement() == id) toModify = next;
+		}
+		if (toModify != null) {
+			toModify.setDestination(destination);
+			toModify.setSource(source);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean deleteEnchainement(int id) {
+		Iterator<IEnchainement> iterator = this.enchainements.iterator();
+		IEnchainement toDelete;
+		while(iterator.hasNext()) {
+			IEnchainement next = iterator.next();
+			if (next.getIdEnchainement() == id) {
+				toDelete = next;
+				enchainements.remove(toDelete);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean addObjet(String name, String description) {
 		Objects.requireNonNull(name);
 		Objects.requireNonNull(description);
-		return this.objets.add(ObjetFactory.createObjet(name, description));
+		IObjet newObjet = ObjetFactory.createObjet(name, description);
+		this.objets.put(Integer.valueOf(newObjet.getIdObjet()), newObjet);
+		return true;
 	}
 	
-	
+
 }
