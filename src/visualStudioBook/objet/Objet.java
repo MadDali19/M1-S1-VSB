@@ -39,6 +39,12 @@ public class Objet implements IObjet {
 	public int getIdObjet() {
 		return idObjet;
 	}
+    public void afficherObjet() {
+        System.out.println("		ID: " + getIdObjet());
+        System.out.println("		Nom: " + getName());
+        System.out.println("		Description: " + getDescription());
+        System.out.println("		-------------------------------------------------------------------------------");
+    }
 	
 	
 }

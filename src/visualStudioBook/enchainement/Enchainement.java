@@ -5,19 +5,20 @@ import java.util.List;
 import visualStudioBook.itf.IEnchainement;
 import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
+import visualStudioBook.objet.Objet;
 
 public class Enchainement implements IEnchainement {
 	private final int idEnchainement;
 	private static int numberEnchainement = 1;
 	private ISection source;
 	private ISection destination;
-	private final ArrayList<IObjet> condition;
+	private ArrayList<IObjet> condition;
 	
 	public Enchainement(ISection source, ISection destination) {
 		this.source = source;
 		this.destination = destination;
 		this.idEnchainement = numberEnchainement;
-		this.condition = new ArrayList<IObjet>();
+		this.condition = new  ArrayList<IObjet>();
 		numberEnchainement++;
 	}
 
@@ -40,24 +41,24 @@ public class Enchainement implements IEnchainement {
 	public void setDestination(ISection destination) {
 		this.destination = destination;
 	}
-
+	public void setCondition(ISection s) {
+		this.condition = (ArrayList<IObjet>) s.getGivenObjects();
+	}
 	public List<IObjet> getCondition() {
 		return condition;
 	}
-	
-	@Override
-	public int hashCode() {
-		int hash;
-		hash = 31 * source.hashCode()+ destination.hashCode();
-		return hash;
-	}
-	
-	@Override
-	public boolean equals(IEnchainement object) {
-		return ((object.getSource().getIdSection() == getSource().getIdSection())
-				&&
-				(object.getDestination() == getDestination())
-			   );
-	}
+	public void afficherEnchainement() {
+        System.out.println("ID Enchainement : " + getIdEnchainement());
+        System.out.println("Source Section : " + getSource().getTitle()); // Assurez-vous que ISection a une méthode getTitle()
+        System.out.println("Destination Section : " + getDestination().getTitle()); // Assurez-vous que ISection a une méthode getTitle()
+
+        List<IObjet> conditions = getCondition();
+        System.out.println("Conditions : ");
+        for (IObjet condition : conditions) {
+            ((Objet) condition).afficherObjet();
+        }
+        System.out.println();
+    }
+
 	
 }

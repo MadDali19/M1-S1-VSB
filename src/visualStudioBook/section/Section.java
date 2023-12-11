@@ -12,7 +12,7 @@ public class Section implements ISection {
 	private static int numberSection = 1;
 	private String title;
 	private String content;
-	private final ArrayList<IObjet> givenObjects;
+	private ArrayList<IObjet> givenObjects;
 	
 	public Section(String title, String content) {
 		Objects.requireNonNull(title);
@@ -39,7 +39,9 @@ public class Section implements ISection {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
+	public void setgivenObjects(ArrayList<IObjet> Objects) {
+		this.givenObjects = Objects;
+	}
 	public int getIdSection() {
 		return idSection;
 	}
@@ -48,10 +50,7 @@ public class Section implements ISection {
 		return givenObjects;
 	}
 	
-	@Override
-	public int hashCode() {
-		return idSection;
-	}
+	
 	
 	
 }
