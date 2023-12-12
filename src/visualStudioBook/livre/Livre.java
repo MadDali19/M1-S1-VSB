@@ -9,12 +9,13 @@ import visualStudioBook.factory.EnchainementFactory;
 import visualStudioBook.factory.ObjetFactory;
 import visualStudioBook.factory.SectionFactory;
 import visualStudioBook.itf.IEnchainement;
+import visualStudioBook.itf.ILivre;
 import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
 import visualStudioBook.section.Section;
 
-
-public class Livre {
+//LVDH projet master
+public class Livre implements ILivre {
 	private String title;
 	private String auteur;
 	private String description;
@@ -34,52 +35,62 @@ public class Livre {
 		objets = new ArrayList<IObjet>();
 	}
 
+	@Override
 	public String getTitle() {
 		return title;
 	}
 
+	@Override
 	public void setTitle(String title) {
 		Objects.requireNonNull(title);
 		this.title = title;
 	}
 
+	@Override
 	public String getAuteur() {
 		return auteur;
 	}
 
+	@Override
 	public void setAuteur(String auteur) {
 		Objects.requireNonNull(auteur);
 		this.auteur = auteur;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public void setDescription(String description) {
 		Objects.requireNonNull(description);
 		this.description = description;
 	}
 
+	@Override
 	public List<IEnchainement> getEnchainements() {
 		return enchainements;
 	}
 
+	@Override
 	public List<ISection> getSections() {
 		return sections;
 	}
 
+	@Override
 	public List<IObjet> getObjets() {
 		return objets;
 	}
 	
-	
+	@Override
 	public boolean addSection(String title, String content) {
 		Objects.requireNonNull(title);
 		Objects.requireNonNull(content);
 		return this.sections.add(SectionFactory.createNewSection(title, content));
 	}
 	
+	@Override
 	public boolean addEnchainement(ISection source, ISection destination) {
 		Objects.requireNonNull(source);
 		Objects.requireNonNull(destination);
@@ -100,12 +111,14 @@ public class Livre {
 		
 	}
 	
+	@Override
 	public boolean addObjet(String name, String description) {
 		Objects.requireNonNull(name);
 		Objects.requireNonNull(description);
 		return this.objets.add(ObjetFactory.createObjet(name, description));
 	}
 
+	@Override
 	public boolean removeSection(int sectionNumber) {
         Iterator<ISection> iterator = this.sections.iterator();
         while (iterator.hasNext()) {
@@ -117,6 +130,8 @@ public class Livre {
         }
         return false; // La section n'a pas été trouvée
     }
+	
+	@Override
 	public boolean updateSection(int sectionNumber, String newTitle, String newContent) {
         for (ISection section : sections) {
             if (((Section) section).getIdSection() == sectionNumber) {
@@ -127,16 +142,21 @@ public class Livre {
         }
         return false; // La section n'a pas été trouvée
     }
+	
+	@Override
 	public boolean updateObjetSection(int sectionNumber, ArrayList<IObjet> Objects) {
         for (ISection section : sections) {
             if (((Section) section).getIdSection() == sectionNumber) {
                 section.setgivenObjects(Objects);
+                
+        		
                 return true; // Section mise à jour avec succès
             }
         }
         return false; // La section n'a pas été trouvée
     }
 	
+	@Override
 	public ISection getSection(int sectionNumber) {
         for (ISection section : sections) {
             if (((Section) section).getIdSection() == sectionNumber) {
@@ -148,42 +168,21 @@ public class Livre {
         
     }
 	
+	@Override
+	public void exportLivre(String path, int type) {
+		
+	}
+	
+	@Override
+	public void importLivre(String path) {
+		
+	}
+
+	@Override
 	public void analyseSectionsNonLiees() {
-        List<ISection> sectionsNonLiees = new ArrayList<>();
-
-        for (ISection section : sections) {
-            boolean sectionLiee = false;
-
-            // Vérifier si la section a au moins un enchaînement sortant
-            for (IEnchainement enchainement : enchainements) {
-                if (enchainement.getSource().getIdSection() == section.getIdSection()) {
-                    sectionLiee = true;
-                    break;
-                }
-            }
-
-            // Si la section n'a pas d'enchaînement sortant, l'ajouter à la liste des sections non liées
-            if (!sectionLiee) {
-                sectionsNonLiees.add(section);
-            }
-        }
-
-        // Afficher les sections non liées
-        if (!sectionsNonLiees.isEmpty()) {
-        	System.out.println("------------------------------------Analyse------------------------------------");
-            System.out.println("Sections non liées : ");
-            for (ISection section : sectionsNonLiees) {
-                System.out.println("   Titre : " + section.getTitle());
-                System.out.println("   Contenu : " + section.getContent());
-                System.out.println("   Numero : " + ((Section) section).getIdSection());
-                System.out.println("--------------------------------------");
-                
-            }
-            System.out.println("------------------------------------Analyse termine------------------------------------");
-        } else {
-            System.out.println("Toutes les sections sont liées.");
-        }
-    }
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 }

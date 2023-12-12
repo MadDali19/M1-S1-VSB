@@ -1,5 +1,6 @@
 package visualStudioBook.itf;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ILivre {
@@ -21,8 +22,11 @@ public interface ILivre {
 	boolean addSection(String title, String content);
 	boolean addObjet(String name, String description);
 	boolean addEnchainement(ISection source, ISection destination);
+	
 	boolean removeSection(int sectionNumber);
 	boolean updateSection(int sectionNumber, String newTitle, String newContent);
 	void analyseSectionsNonLiees();
+	ISection getSection(int sectionNumber);
+	boolean updateObjetSection(int sectionNumber, ArrayList<IObjet> Objects);
 }
    

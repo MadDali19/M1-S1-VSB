@@ -1,5 +1,7 @@
 package visualStudioBook;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import visualStudioBook.livre.Livre; // Assurez-vous de cette ligne d'import
 
@@ -81,8 +83,15 @@ public class testLivre {
     private static void afficherSections() {
         if (monLivre != null) {
             System.out.println("\nSections du livre :");
-            System.out.println("Section 1: " + monLivre.getSections().getTitle());
-            // Ajoutez ici l'affichage du contenu de la première section
+            List<ISection> sections = monLivre.getSections();
+            Iterator<ISection> iterator = sections.iterator();
+            while(iterator.hasNext()) {
+            	ISection next = iterator.next();
+            	System.out.println("Section " + next.getIdSection() + " : " + next.getTitle());
+            	System.out.println("Contenu : " + next.getContent());
+            	System.out.println();
+            }
+            
         } else {
             System.out.println("Aucun livre n'a été créé. Veuillez d'abord créer un livre.");
         }

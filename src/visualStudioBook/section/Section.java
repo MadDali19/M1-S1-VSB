@@ -24,28 +24,37 @@ public class Section implements ISection {
 		numberSection++;
 	}
 
+	@Override
 	public String getTitle() {
 		return title;
 	}
 
+	@Override
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	@Override
 	public String getContent() {
 		return content;
 	}
 
+	@Override
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	@Override
 	public void setgivenObjects(ArrayList<IObjet> Objects) {
 		this.givenObjects = Objects;
 	}
+	
+	@Override
 	public int getIdSection() {
 		return idSection;
 	}
-
+	
+	@Override
 	public List<IObjet> getGivenObjects() {
 		return givenObjects;
 	}

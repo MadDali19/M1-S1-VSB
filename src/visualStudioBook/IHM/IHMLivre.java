@@ -7,22 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import visualStudioBook.enchainement.Enchainement;
 import visualStudioBook.factory.SectionFactory;
 import visualStudioBook.itf.IEnchainement;
+import visualStudioBook.itf.ILivre;
 import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
-import visualStudioBook.livre.Livre;
+
 import visualStudioBook.objet.Objet;
 
 import java.util.Scanner;
 
-import java.util.Scanner;
 import visualStudioBook.livre.Livre;
 
 public class IHMLivre {
 
-    private static Livre monLivre = null;
+    private static ILivre monLivre = null;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

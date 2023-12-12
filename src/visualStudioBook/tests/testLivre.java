@@ -8,13 +8,11 @@ import visualStudioBook.enchainement.Enchainement;
 import visualStudioBook.itf.IEnchainement;
 import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
-import visualStudioBook.itf.ISections;
 import visualStudioBook.livre.Livre;
 import visualStudioBook.objet.Objet;
 
 import java.util.Scanner;
 
-import visualStudioBook.section.Sections;
 import java.util.Scanner;
 import visualStudioBook.livre.Livre;
 
@@ -75,7 +73,7 @@ public class testLivre {
             switch (choixSections) {
                 case 0:
                 	System.out.println("Analyse de sections");
-                	monLivre.analyseSectionsNonLiees();
+                	// monLivre.analyseSectionsNonLiees();
                     break;
                 case 1:
                     afficherSections();

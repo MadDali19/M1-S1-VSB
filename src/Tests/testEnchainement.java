@@ -14,7 +14,6 @@ import visualStudioBook.enchainement.Enchainement;
 import visualStudioBook.itf.IEnchainement;
 import visualStudioBook.itf.IObjet;
 class testEnchainement {
-
 	@Test
 	void test() {
 		Livre Livre1 = new Livre("titre", "auteur", "description");
