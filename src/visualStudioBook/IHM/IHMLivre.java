@@ -169,7 +169,8 @@ public class IHMLivre {
                         System.out.print("Entrez le numéro de la section : ");
                         int sectionNumber = scanner.nextInt();
                         scanner.nextLine(); // consommer la nouvelle ligne
-
+                        
+                        if (monLivre.getSection(sectionNumber).getGivenObjects().size()==0){
                         // Créer la liste d'objets
                         ArrayList<IObjet> givenObjects = new ArrayList<>();
 
@@ -201,7 +202,6 @@ public class IHMLivre {
                         for (IObjet objet : givenObjects) {
                             System.out.println("ID: " + objet.getIdObjet() + ", Nom: " + objet.getName() + ", Description: " + objet.getDescription());
                         }
-
                         boolean sectionUpdated = monLivre.updateObjetSection(sectionNumber, givenObjects);
                         
 
@@ -216,6 +216,28 @@ public class IHMLivre {
                         } else {
                             System.out.println("La section n'a pas été trouvée.");
                         }
+                        
+                        }
+                        else if (monLivre.getSection(sectionNumber).getGivenObjects().size()==5) {
+                        	System.out.println("La Liste d'objet est saturee");
+                        	
+                        }
+                        else {
+                        	 System.out.print("Entrez le nom de l'objet : ");
+                             String nomObjet = scanner.nextLine();
+                             System.out.print("Entrez la description de l'objet : ");
+                             String descriptionObjet = scanner.nextLine();
+
+                             // Créer un objet avec le nom et la description donnés
+                             IObjet nouvelObjet = new Objet(nomObjet, descriptionObjet);
+                        	 List<IObjet> givenObjects;
+                        	 monLivre.getSection(sectionNumber).getGivenObjects().add(nouvelObjet);
+                        	 System.out.print("l'objet est ajouter! il vous reste encore "+monLivre.getSection(sectionNumber).getGivenObjects().size()+"espace");
+                        	
+                        	
+                        }
+
+                        
 
                     } else {
                         System.out.println("Aucun livre n'a été créé. Veuillez d'abord créer un livre.");
