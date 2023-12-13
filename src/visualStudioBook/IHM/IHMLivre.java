@@ -1,8 +1,10 @@
 package visualStudioBook.IHM;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,18 +16,18 @@ import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
 
 import visualStudioBook.objet.Objet;
-
+import visualStudioBook.factory.LivreFactory;
 import java.util.Scanner;
-
+import visualStudioBook.livre.*;
 import visualStudioBook.livre.Livre;
 
-public class IHMLivre {
+public class IHMLivre implements Serializable {
 
     private static ILivre monLivre = null;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        GestLivre gest= new GestLivre();
         while (true) {
             afficherMenuPrincipal();
             int choixPrincipal = scanner.nextInt();
@@ -40,15 +42,25 @@ public class IHMLivre {
                     String auteur = scanner.nextLine();
                     System.out.print("Entrez la description du livre: ");
                     String description = scanner.nextLine();
-
-                    monLivre = new Livre(titre, auteur, description);
+                    
+					gest.addLivre(titre, auteur, description);
+					monLivre =gest.getLivre(titre);
+					if (monLivre==null) {
+						System.out.println("Ce Livre existe deja!");
+						afficherMenuPrincipal();
+					}else {
                     monLivre.addSection("Première Section", "Contenu initial de la première section");
                     
                     System.out.println("Le livre '" + monLivre.getTitle() + "' a été créé avec succès!");
-                    
                     afficherMenuSections(scanner);
-                    break;
+                    break;}
                 case 2:
+                	System.out.print("Entrez le Nom du livre: ");
+                    String nom = scanner.nextLine();
+                	monLivre=gest.importerLivre(nom);
+                	afficherMenuSections(scanner);
+                	break;
+                case 3:
                     System.out.println("Au revoir!");
                     scanner.close();
                     System.exit(0);
@@ -61,7 +73,8 @@ public class IHMLivre {
     private static void afficherMenuPrincipal() {
         System.out.println("Menu Principal:");
         System.out.println("1. Créer un nouveau livre");
-        System.out.println("2. Quitter");
+        System.out.println("2. Importer un Livre");
+        System.out.println("3. Quitter");
         System.out.print("Choisissez une option (1-2): ");
     }
 
@@ -79,6 +92,7 @@ public class IHMLivre {
             System.out.println("6. Crrer un enchainement");
             System.out.println("7. afficher les enchainements");
             System.out.println("8. Retour au menu principal");
+            System.out.println("9. Sauvegarder le livre");
             System.out.print("Choisissez une option (1-8): ");
             choixSections = scanner.nextInt();
             scanner.nextLine(); // consommer la nouvelle ligne
@@ -273,7 +287,13 @@ public class IHMLivre {
                     break;
                 case 8:
                     System.out.println("Retour au menu principal.");
+                    monLivre.sauvegarderLivre(monLivre, "res");
                     break;
+                case 9:
+                	System.out.print("Donner un Nom a votre Livre");
+                    String nom = scanner.nextLine();
+                	monLivre.sauvegarderLivre(monLivre, nom);
+                	break;
                 default:
                     System.out.println("Choix invalide. Veuillez choisir une option valide.");
             }

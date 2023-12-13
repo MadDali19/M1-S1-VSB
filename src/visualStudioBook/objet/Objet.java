@@ -1,10 +1,11 @@
 package visualStudioBook.objet;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import visualStudioBook.itf.IObjet;
 
-public class Objet implements IObjet {
+public class Objet implements IObjet, Serializable {
 	private final int idObjet;
 	private static int numberObjet = 1;
 	private String name;

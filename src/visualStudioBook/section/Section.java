@@ -1,5 +1,6 @@
 package visualStudioBook.section;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -7,7 +8,7 @@ import java.util.Objects;
 import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
 
-public class Section implements ISection {
+public class Section implements ISection,  Serializable {
 	private final int idSection;
 	private static int numberSection = 1;
 	private String title;

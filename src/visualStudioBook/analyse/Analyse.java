@@ -1,5 +1,6 @@
 package visualStudioBook.analyse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import visualStudioBook.itf.IEnchainement;
 import visualStudioBook.itf.ISection;
 import visualStudioBook.section.Section;
 import visualStudioBook.section.Section;
-public class Analyse {
+public class Analyse implements Serializable {
 	public void analyseSectionsNonLiees(ArrayList<ISection> sections,ArrayList<IEnchainement> enchainements) {
         List<ISection> sectionsNonLiees = new ArrayList<>();
 

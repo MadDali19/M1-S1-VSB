@@ -1,5 +1,8 @@
 package visualStudioBook.itf;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,6 @@ public interface ILivre {
 	void exportLivre(String path, int type);
 	
 	boolean addSection(String title, String content);
-	boolean addObjet(String name, String description);
 	boolean addEnchainement(ISection source, ISection destination);
 	
 	boolean removeSection(int sectionNumber);
@@ -28,5 +30,6 @@ public interface ILivre {
 	void analyseSectionsNonLiees();
 	ISection getSection(int sectionNumber);
 	boolean updateObjetSection(int sectionNumber, ArrayList<IObjet> Objects);
+	void sauvegarderLivre(ILivre livre, String fileName);
 }
    

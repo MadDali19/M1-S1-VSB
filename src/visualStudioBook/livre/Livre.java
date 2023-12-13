@@ -14,8 +14,12 @@ import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
 import visualStudioBook.section.Section;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 //LVDH projet master
-public class Livre implements ILivre {
+public class Livre implements ILivre,Serializable {
 	private String title;
 	private String auteur;
 	private String description;
@@ -111,13 +115,7 @@ public class Livre implements ILivre {
 		
 	}
 	
-	@Override
-	public boolean addObjet(String name, String description) {
-		Objects.requireNonNull(name);
-		Objects.requireNonNull(description);
-		return this.objets.add(ObjetFactory.createObjet(name, description));
-	}
-
+	
 	@Override
 	public boolean removeSection(int sectionNumber) {
         Iterator<ISection> iterator = this.sections.iterator();
@@ -183,6 +181,13 @@ public class Livre implements ILivre {
 		// TODO Auto-generated method stub
 		
 	}
-
+	public void sauvegarderLivre(ILivre livre, String fileName) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            oos.writeObject(livre);
+            System.out.println("Le livre a été sauvegardé avec succès dans le fichier : " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	
 }

@@ -1,4 +1,5 @@
 package visualStudioBook.enchainement;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import visualStudioBook.itf.IObjet;
 import visualStudioBook.itf.ISection;
 import visualStudioBook.objet.Objet;
 
-public class Enchainement implements IEnchainement {
+public class Enchainement implements IEnchainement, Serializable {
 	private final int idEnchainement;
 	private static int numberEnchainement = 1;
 	private ISection source;
